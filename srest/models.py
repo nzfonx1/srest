@@ -42,14 +42,18 @@ class UUID(types.TypeEngine):
 class MyModel(Base):
     __tablename__ = 'files'
     id = Column(Unicode(255), primary_key=True)
+    name = Column(Text)
     path = Column(Text)
     size = Column(Integer)
+    uploader = Column(Unicode(16))
     timestamp = Column(DATETIME)
 
-    def __init__(self, id, path, size):
+    def __init__(self, id, name, path, size, uploader):
         self.id = id
+        self.name = name
         self.path = path
         self.size = size
+        self.uploader = uploader
         self.timestamp = datetime.now()
 
 
