@@ -1,0 +1,5 @@
+      [paste.app_factory]
+      main = srest:main
+      [console_scripts]
+      initialize_srest_db = srest.scripts.initializedb:main
+      
