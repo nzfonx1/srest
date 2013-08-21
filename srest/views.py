@@ -3,6 +3,7 @@ from pyramid.view import view_config
 from sqlalchemy.exc import DBAPIError
 import os
 import uuid
+import magic
 from .models import (
     DBSession,
     MyModel,
@@ -53,6 +54,7 @@ def post_file(request):
     filepath = os.path.join('/tmp', '%s' % myuuid4)
     print filepath
     print filename
+
     temp_file_path = filepath + '~'
     ofile = open(temp_file_path, 'wb')
 
@@ -66,7 +68,10 @@ def post_file(request):
 
     #  flush it
     ofile.close()
-
+    try:
+        filetype = magic.from_file(temp_file_path, mime=True)
+    except:
+        filetype = "unknown/unknown"
     # Now that we know the file has been fully saved to disk move it into
     # place.
     os.rename(temp_file_path, filepath)
@@ -76,7 +81,8 @@ def post_file(request):
     size = os.path.getsize(filepath)
     uploader = request.remote_addr
     print uploader
-    myfile = MyModel(id="%s" % myuuid4, name=filename, path=filepath,
+    myfile = MyModel(id="%s" % myuuid4, name=filename,
+                     filetype=filetype, path=filepath,
                      size=size, uploader=uploader)
     session.add(myfile)
     session.flush()
@@ -98,13 +104,13 @@ def list_files(request):
     result = session.query(MyModel)\
         .filter(between(MyModel.timestamp, delta, now))\
         .order_by(MyModel.timestamp.desc())
-    
+
     for res in result:
         print res.path
-    files = [{res.id: {'timestamp': str(res.timestamp),
-                       'size': res.size,
-                       'uploader': res.uploader
-                       }
+    files = [{'id': res.id,
+              'size': res.size,
+              'content-type': res.filetype,
+              'url': '/file/%s' % res.id
               }]
     return files
 
