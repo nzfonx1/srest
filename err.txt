@@ -1,0 +1,175 @@
+2013-08-22 01:39:57,497 INFO  [sqlalchemy.engine.base.Engine][MainThread] PRAGMA table_info("files")
+2013-08-22 01:39:57,497 INFO  [sqlalchemy.engine.base.Engine][MainThread] ()
+2013-08-22 01:40:01,120 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] BEGIN (implicit)
+2013-08-22 01:40:01,121 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] DELETE FROM files
+2013-08-22 01:40:01,121 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] ()
+2013-08-22 01:40:01,122 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] COMMIT
+2013-08-22 01:40:01,254 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] BEGIN (implicit)
+/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/SQLAlchemy-0.8.2-py2.7.egg/sqlalchemy/engine/default.py:459: SAWarning: Unicode type received non-unicode bind param value.
+2013-08-22 01:40:01,255 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] INSERT INTO files (id, name, filetype, path, size, uploader, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)
+2013-08-22 01:40:01,255 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] ('a3ac257d-9393-4eba-a8bd-9170a2976e3e', u'1st file', 'text/plain', '/tmp/a3ac257d-9393-4eba-a8bd-9170a2976e3e', 4, '127.0.0.1', '2013-08-22 01:40:01.253592')
+2013-08-22 01:40:01,256 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] COMMIT
+2013-08-22 01:40:01,423 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] BEGIN (implicit)
+2013-08-22 01:40:01,424 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] INSERT INTO files (id, name, filetype, path, size, uploader, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)
+2013-08-22 01:40:01,424 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] ('aa325fb1-8cdd-44e5-816a-a02750c07823', u'2nd file', 'text/plain', '/tmp/aa325fb1-8cdd-44e5-816a-a02750c07823', 7, '127.0.0.1', '2013-08-22 01:40:01.422415')
+2013-08-22 01:40:01,427 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] COMMIT
+2013-08-22 01:40:01,581 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] BEGIN (implicit)
+2013-08-22 01:40:01,583 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] SELECT count(*) AS count_1 
+FROM (SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.timestamp BETWEEN ? AND ? ORDER BY files.timestamp DESC) AS anon_1
+2013-08-22 01:40:01,584 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] ('2013-08-21 20:40:01.574280', '2013-08-22 01:40:01.574280')
+2013-08-22 01:40:01,585 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.timestamp BETWEEN ? AND ? ORDER BY files.timestamp DESC
+2013-08-22 01:40:01,585 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] ('2013-08-21 20:40:01.574280', '2013-08-22 01:40:01.574280')
+2013-08-22 01:40:01,593 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] BEGIN (implicit)
+2013-08-22 01:40:01,594 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] DELETE FROM files
+2013-08-22 01:40:01,594 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] ()
+2013-08-22 01:40:01,596 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] COMMIT
+2013-08-22 01:40:01,763 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] BEGIN (implicit)
+2013-08-22 01:40:01,764 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] DELETE FROM files
+2013-08-22 01:40:01,764 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] ()
+2013-08-22 01:40:01,765 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] COMMIT
+2013-08-22 01:40:01,917 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] BEGIN (implicit)
+2013-08-22 01:40:01,918 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] SELECT count(*) AS count_1 
+FROM (SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.timestamp BETWEEN ? AND ? ORDER BY files.timestamp DESC) AS anon_1
+2013-08-22 01:40:01,918 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] ('2013-08-21 20:40:01.915533', '2013-08-22 01:40:01.915533')
+2013-08-22 01:40:01,925 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] BEGIN (implicit)
+2013-08-22 01:40:01,925 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] DELETE FROM files
+2013-08-22 01:40:01,926 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] ()
+2013-08-22 01:40:01,928 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] COMMIT
+2013-08-22 01:40:02,053 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] BEGIN (implicit)
+2013-08-22 01:40:02,054 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] SELECT count(*) AS count_1 
+FROM (SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.id = ?) AS anon_1
+2013-08-22 01:40:02,054 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] (u'6283',)
+2013-08-22 01:40:02,059 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] BEGIN (implicit)
+2013-08-22 01:40:02,059 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] DELETE FROM files
+2013-08-22 01:40:02,059 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] ()
+2013-08-22 01:40:02,060 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] COMMIT
+2013-08-22 01:40:02,186 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] BEGIN (implicit)
+2013-08-22 01:40:02,187 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] INSERT INTO files (id, name, filetype, path, size, uploader, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)
+2013-08-22 01:40:02,187 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] ('61aae0ae-682c-4ee9-93b1-dbde2fdb5f3c', u'test.jpg', 'text/plain', '/tmp/61aae0ae-682c-4ee9-93b1-dbde2fdb5f3c', 14, '127.0.0.1', '2013-08-22 01:40:02.186146')
+2013-08-22 01:40:02,188 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] COMMIT
+2013-08-22 01:40:02,316 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] BEGIN (implicit)
+2013-08-22 01:40:02,317 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] SELECT count(*) AS count_1 
+FROM (SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.id = ?) AS anon_1
+2013-08-22 01:40:02,317 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] (u'61aae0ae-682c-4ee9-93b1-dbde2fdb5f3c',)
+2013-08-22 01:40:02,319 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] SELECT count(*) AS count_1 
+FROM (SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.id = ?) AS anon_1
+2013-08-22 01:40:02,319 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] (u'61aae0ae-682c-4ee9-93b1-dbde2fdb5f3c',)
+2013-08-22 01:40:02,320 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.id = ?
+ LIMIT ? OFFSET ?
+2013-08-22 01:40:02,321 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] (u'61aae0ae-682c-4ee9-93b1-dbde2fdb5f3c', 1, 0)
+2013-08-22 01:40:02,330 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] BEGIN (implicit)
+2013-08-22 01:40:02,330 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] DELETE FROM files
+2013-08-22 01:40:02,331 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] ()
+2013-08-22 01:40:02,333 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] COMMIT
+2013-08-22 01:40:02,506 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] BEGIN (implicit)
+2013-08-22 01:40:02,507 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] INSERT INTO files (id, name, filetype, path, size, uploader, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)
+2013-08-22 01:40:02,507 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] ('ee164389-ded5-49f4-9935-a9f3c844006c', u'test.txt', 'text/plain', '/tmp/ee164389-ded5-49f4-9935-a9f3c844006c', 9, '127.0.0.1', '2013-08-22 01:40:02.505541')
+2013-08-22 01:40:02,510 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] COMMIT
+2013-08-22 01:40:02,662 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] BEGIN (implicit)
+2013-08-22 01:40:02,663 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] DELETE FROM files
+2013-08-22 01:40:02,663 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] ()
+2013-08-22 01:40:02,665 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] COMMIT
+2013-08-22 01:40:02,811 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] BEGIN (implicit)
+2013-08-22 01:40:02,812 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] INSERT INTO files (id, name, filetype, path, size, uploader, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)
+2013-08-22 01:40:02,812 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] ('4e0207f6-0d2d-415b-938a-26e600829cce', u'some file.txt', 'text/plain', '/tmp/4e0207f6-0d2d-415b-938a-26e600829cce', 7, '127.0.0.1', '2013-08-22 01:40:02.810439')
+2013-08-22 01:40:02,815 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] COMMIT
+2013-08-22 01:40:02,973 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] BEGIN (implicit)
+2013-08-22 01:40:02,975 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] SELECT count(*) AS count_1 
+FROM (SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.id = ?) AS anon_1
+2013-08-22 01:40:02,975 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] (u'4e0207f6-0d2d-415b-938a-26e600829cce',)
+2013-08-22 01:40:02,979 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] SELECT count(*) AS count_1 
+FROM (SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.id = ?) AS anon_1
+2013-08-22 01:40:02,979 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] (u'4e0207f6-0d2d-415b-938a-26e600829cce',)
+2013-08-22 01:40:02,980 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] SELECT files.id AS files_id, files.name AS files_name, files.filetype AS files_filetype, files.path AS files_path, files.size AS files_size, files.uploader AS files_uploader, files.timestamp AS files_timestamp 
+FROM files 
+WHERE files.id = ?
+ LIMIT ? OFFSET ?
+2013-08-22 01:40:02,980 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] (u'4e0207f6-0d2d-415b-938a-26e600829cce', 1, 0)
+2013-08-22 01:40:02,985 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] BEGIN (implicit)
+2013-08-22 01:40:02,985 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] DELETE FROM files
+2013-08-22 01:40:02,985 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] ()
+2013-08-22 01:40:02,986 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] COMMIT
+2013-08-22 01:40:03,166 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] BEGIN (implicit)
+2013-08-22 01:40:03,167 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] INSERT INTO files (id, name, filetype, path, size, uploader, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)
+2013-08-22 01:40:03,167 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] ('8efe7c29-d962-417d-9400-34f5e8291c68', u'some file.txt', 'text/plain', '/tmp/8efe7c29-d962-417d-9400-34f5e8291c68', 7, '127.0.0.1', '2013-08-22 01:40:03.166282')
+2013-08-22 01:40:03,168 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] COMMIT
+2013-08-22 01:40:03,296 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] BEGIN (implicit)
+2013-08-22 01:40:03,296 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] DELETE FROM files
+2013-08-22 01:40:03,296 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] ()
+2013-08-22 01:40:03,297 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] COMMIT
+2013-08-22 01:40:03,439 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] BEGIN (implicit)
+2013-08-22 01:40:03,440 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] INSERT INTO files (id, name, filetype, path, size, uploader, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)
+2013-08-22 01:40:03,440 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] ('58a49601-fe25-4160-a861-e0f310ec72d8', u'testing-this.txt', 'text/plain', '/tmp/58a49601-fe25-4160-a861-e0f310ec72d8', 9, '127.0.0.1', '2013-08-22 01:40:03.438244')
+2013-08-22 01:40:03,443 INFO  [sqlalchemy.engine.base.Engine][Dummy-2] COMMIT
+2013-08-22 01:40:03,590 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] BEGIN (implicit)
+2013-08-22 01:40:03,590 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] DELETE FROM files
+2013-08-22 01:40:03,590 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] ()
+2013-08-22 01:40:03,591 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] COMMIT
+2013-08-22 01:40:03,742 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] BEGIN (implicit)
+2013-08-22 01:40:03,743 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] INSERT INTO files (id, name, filetype, path, size, uploader, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)
+2013-08-22 01:40:03,744 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] ('7184497b-9af4-4c19-9554-c425457011de', u'test2', 'text/plain', '/tmp/7184497b-9af4-4c19-9554-c425457011de', 5, '127.0.0.1', '2013-08-22 01:40:03.741798')
+2013-08-22 01:40:03,746 INFO  [sqlalchemy.engine.base.Engine][Dummy-4] COMMIT
+2013-08-22 01:40:03,903 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] BEGIN (implicit)
+2013-08-22 01:40:03,903 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] DELETE FROM files
+2013-08-22 01:40:03,903 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] ()
+2013-08-22 01:40:03,905 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] COMMIT
+2013-08-22 01:40:04,058 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] BEGIN (implicit)
+2013-08-22 01:40:04,059 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] DELETE FROM files
+2013-08-22 01:40:04,059 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] ()
+2013-08-22 01:40:04,059 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] COMMIT
+2013-08-22 01:40:04,220 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] BEGIN (implicit)
+2013-08-22 01:40:04,220 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] DELETE FROM files
+2013-08-22 01:40:04,221 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] ()
+2013-08-22 01:40:04,223 INFO  [sqlalchemy.engine.base.Engine][Dummy-5] COMMIT
+2013-08-22 01:40:04,457 ERROR [pyramid_debugtoolbar][Dummy-2] Exception at http://localhost:9000/files
+traceback url: http://localhost:9000/_debug_toolbar/exception?token=52ad213045f50687211d&tb=40184656
+Traceback (most recent call last):
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid_debugtoolbar-1.0.6-py2.7.egg/pyramid_debugtoolbar/toolbar.py", line 141, in toolbar_tween
+    response = _handler(request)
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid_debugtoolbar-1.0.6-py2.7.egg/pyramid_debugtoolbar/panels/performance.py", line 55, in resource_timer_handler
+    result = handler(request)
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid/tweens.py", line 21, in excview_tween
+    response = handler(request)
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid_tm-0.7-py2.7.egg/pyramid_tm/__init__.py", line 82, in tm_tween
+    reraise(*exc_info)
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid_tm-0.7-py2.7.egg/pyramid_tm/__init__.py", line 63, in tm_tween
+    response = handler(request)
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid/router.py", line 161, in handle_request
+    response = view_callable(context, request)
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid/config/views.py", line 321, in attr_view
+    return view(context, request)
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid/config/views.py", line 297, in predicate_wrapper
+    return view(context, request)
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid/config/views.py", line 347, in rendered_view
+    result = view(context, request)
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/pyramid/config/views.py", line 493, in _requestonly_view
+    response = view(request)
+  File "/home/nzfonx/work/code/simbin/srest/srest/views.py", line 118, in post_file
+    print "\n\n\nAAAAAAAAAAA", filetype, request
+  File "/home/nzfonx/work/code/simbin/senv/local/lib/python2.7/site-packages/webob/request.py", line 1153, in as_text
+    return bytes.decode(self.charset)
+  File "/home/nzfonx/work/code/simbin/senv/lib/python2.7/encodings/utf_8.py", line 16, in decode
+    return codecs.utf_8_decode(input, errors, True)
+UnicodeDecodeError: 'utf8' codec can't decode byte 0xbe in position 413: invalid start byte
+2013-08-22 01:40:10,080 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] BEGIN (implicit)
+2013-08-22 01:40:10,080 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] DELETE FROM files
+2013-08-22 01:40:10,080 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] ()
+2013-08-22 01:40:10,081 INFO  [sqlalchemy.engine.base.Engine][Dummy-3] COMMIT

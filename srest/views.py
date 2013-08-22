@@ -1,4 +1,4 @@
-from pyramid.response import Response
+from pyramid.response import (Response, FileResponse)
 from pyramid.view import view_config
 from sqlalchemy.exc import DBAPIError
 import os
@@ -10,46 +10,95 @@ from .models import (
 )
 
 
-FILES = {
-    'id1': {
-        'name': 'file1name',
-        'size': 'file1size',
-        'date': 'file1date'
-    },
-    'id2': {
-        'name': 'file2name',
-        'size': 'file2size',
-        'date': 'file2date'
-    }
-}
+@view_config(route_name='getfile', request_method='GET')
+def getfile(request):
+    """
+    GET metadata from DB, fetch file and serve it to the client
+    TODO: implement nice error handling
+    """
+
+    # get filename from url
+    filename = request.matchdict['name']
+    session = DBSession()
+    # fetch metadata for this file
+    result = session.query(MyModel).filter_by(id=filename)
+
+    if result.count() < 1:
+        request.response.status = 404
+        return {}
+    elif result.count() == 1:
+        res = result.first()
+        filepath = res.path
+        response = FileResponse(
+            filepath,
+            request=request,
+            content_type=str(res.filetype)
+        )
+        return response
+
+    # TODO: handle error
+    request.response.status = 404
+    return {}
 
 
 @view_config(route_name='file', request_method='GET', renderer='json')
-def get_file(request):
-    print "GETTING FILE!!"
-    name = request.matchdict['name']
-    return {'ok': 'ok'}
-    # return FILES[name]
+def getfilemeta(request):
+    """
+    GET metadata belonging to the specified file
+    """
+
+    # get filename from url
+    filename = request.matchdict['name']
+    session = DBSession()
+    # go look for metadata about this filename
+    result = session.query(MyModel).filter_by(id=filename)
+
+    if result.count() < 1:
+        request.response.status = 404
+        return {}
+    # there should be only one file
+    elif result.count() == 1:
+        res = result.first()
+        return {'id': res.id, 'file_name': res.name,
+                'file_type': res.filetype,
+                'file_size': res.size,
+                # 'uploader': res.uploader,
+                # 'timestamp': str(res.timestamp),
+                'download_url': '/getfile/%s' % res.id
+                }
+
+    # default to NotFound...
+    request.response.status = 404
+    return {}
 
 
 @view_config(route_name='postfile', request_method='POST', renderer='json')
 def post_file(request):
-
+    """
+    Upload a file
+    TODO: abstract method to isolate it so that is possible to scale by adding
+     some messaging/queing etc to speed up
+    """
     # get filelist
-    fileslist = request.POST.get('myfile')
+    try:
+        fileslist = request.POST.get('file')
 
-    # this is for multiple uploads (could be a new feature)
-    # filelist = request.POST.getall('myfile')
-    # print ("My files listing: ", fileslist)
-    # for f in fileslist:
-    #     print ( "individual files: ", f )
+        # this is for multiple uploads (could be a new feature)
+        # filelist = request.POST.getall('myfile')
+        # print ("My files listing: ", fileslist)
+        # for f in fileslist:
+        #     print ( "individual files: ", f )
 
-    #  get orig filename
-    filename = request.POST['myfile'].filename
+        #  get orig filename
+        filename = request.POST['file'].filename
 
-    # actual file
-    rawfile = request.POST['myfile'].file
+        # actual file
+        rawfile = request.POST['file'].file
+    except:
+        request.response.status = 400
+        return {}
 
+    # get a uuid for this file
     myuuid4 = uuid.uuid4()
     filepath = os.path.join('/tmp', '%s' % myuuid4)
     print filepath
@@ -68,30 +117,66 @@ def post_file(request):
 
     #  flush it
     ofile.close()
+
+    filetype = None
     try:
         filetype = magic.from_file(temp_file_path, mime=True)
-    except:
-        filetype = "unknown/unknown"
-    # Now that we know the file has been fully saved to disk move it into
-    # place.
+    except:  # dont remember how magic handles errors
+        pass
+
+    # move file to storage
     os.rename(temp_file_path, filepath)
 
     # store path and metadata
     session = DBSession()
+    # get filesize
     size = os.path.getsize(filepath)
+
+    if size == 0:
+        request.response.status = 400
+        return {}
+    # get uploader address
     uploader = request.remote_addr
-    print uploader
+
+    # instantiate a new file
     myfile = MyModel(id="%s" % myuuid4, name=filename,
                      filetype=filetype, path=filepath,
                      size=size, uploader=uploader)
+    # store metadata to db
     session.add(myfile)
     session.flush()
 
-    return {'error': 0, 'msg': '%s saved successfully' % (filename)}
+    # HTTP: created
+    request.response.status = 201
+    return {'id':  '%s' % (str(myuuid4)), 'file_type': filetype,
+            'download_url': 'http://localhost:9000/getfile/%s' % (str(myuuid4)),
+            'file_name': filename, 'file_size': size}
+
+
+@view_config(route_name='delete_files', renderer='json')
+def delete_files(request):
+    """
+    DELETE all the files
+    TODO change this to a loop..cycle, delete each file (both db and fs!)
+    """
+    try:
+        session = DBSession()
+        session.query(MyModel).delete()
+        # HTTP: OK
+        request.response.status = 200
+    except:
+        # TODO: Handle error
+        request.response.status = 500
+        return {}
+    return {}
 
 
 @view_config(route_name='files', request_method='GET', renderer='json')
 def list_files(request):
+    """
+    LIST all the files uploaded in the last 5 hours
+
+    """
     from sqlalchemy.sql.expression import between
     from datetime import datetime, timedelta
     session = DBSession()
@@ -105,38 +190,18 @@ def list_files(request):
         .filter(between(MyModel.timestamp, delta, now))\
         .order_by(MyModel.timestamp.desc())
 
-    for res in result:
-        print res.path
-    files = [{'id': res.id,
-              'size': res.size,
-              'content-type': res.filetype,
-              'url': '/file/%s' % res.id
-              }]
-    return files
+    if result.count() > 0:
+        files = []
+        for res in result:
+            print res.path
+            files.append({'id': res.id,
+                          'file_name': res.name,
+                          'file_size': res.size,
+                          'file_type': res.filetype,
+                          'download_url': 'http://localhost:9000/getfile/%s' % res.id
+                          })
+        return files
+    else:
+        # Could add a No Content (204) response
+        return []
 
-
-
-
-# @view_config(route_name='home', renderer='templates/mytemplate.pt')
-# def my_view(request):
-#     try:
-#         one = DBSession.query(MyModel).filter(MyModel.name == 'one').first()
-#     except DBAPIError:
-#         return Response(conn_err_msg, content_type='text/plain', status_int=500)
-#     return {'one': one, 'project': 'srest'}
-
-# conn_err_msg = """\
-# Pyramid is having a problem using your SQL database.  The problem
-# might be caused by one of the following things:
-
-# 1.  You may need to run the "initialize_srest_db" script
-#     to initialize your database tables.  Check your virtual
-#     environment's "bin" directory for this script and try to run it.
-
-# 2.  Your database server may not be running.  Check that the
-#     database server referred to by the "sqlalchemy.url" setting in
-#     your "development.ini" file is running.
-
-# After you fix the problem, please restart the Pyramid application to
-# try it again.
-# """
