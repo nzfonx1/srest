@@ -6,6 +6,8 @@ from .models import (
     Base,
 )
 
+#  http://zhuoqiang.me/restful-pyramid.html
+
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
